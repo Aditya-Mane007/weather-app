@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react"
-import { toast } from "react-toastify"
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function App() {
-  const [isEvening, setIsEvening] = useState(false)
+  const [isEvening, setIsEvening] = useState(false);
   const [position, setPosition] = useState({
     lat: "",
     long: "",
-  })
-  const [inputText, setInputText] = useState("")
+  });
+  const [inputText, setInputText] = useState("");
 
-  const [weatherReport, setWeatherReport] = useState()
+  const [weatherReport, setWeatherReport] = useState();
 
-  console.log(position)
-  console.log(weatherReport)
+  console.log(position);
+  console.log(weatherReport);
 
   const fetchWeather = async (lat, long) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
-      )
+      );
 
       if (!res.ok || res.status === 404) {
-        throw new Error("Enable To fetch weather report")
+        throw new Error("Enable To fetch weather report");
       }
 
-      const data = await res.json()
+      const data = await res.json();
 
-      console.log(data)
+      console.log(data);
 
       const jsonData = {
         country: data.city.country,
@@ -36,32 +36,32 @@ function App() {
         sunset: data.city.sunset,
         weatherData: data.list[0],
         weather: data.list[0].weather[0],
-      }
+      };
 
-      console.log(jsonData)
+      console.log(jsonData);
 
-      setWeatherReport(jsonData)
+      setWeatherReport(jsonData);
       // toast.success("Weather report fetched successfully")
     } catch (error) {
-      toast.warning(error)
+      toast.warning(error);
     }
-    setInputText("")
-  }
+    setInputText("");
+  };
 
   const fetchWeatherByCity = async (city) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
-      )
+      );
 
       if (!res.ok) {
-        throw new Error("Enable To fetch weather report")
+        throw new Error("Enable To fetch weather report");
       }
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (data && data.cod == "404") {
-        throw new Error(data.message)
+        throw new Error(data.message);
       } else {
         const jsonData = {
           country: data.city.country,
@@ -71,52 +71,52 @@ function App() {
           sunset: data.city.sunset,
           weatherData: data.list[0],
           weather: data.list[0].weather[0],
-        }
+        };
 
-        console.log(jsonData)
+        console.log(jsonData);
 
-        setWeatherReport(jsonData)
-        toast.success("Weather report fetched successfully")
+        setWeatherReport(jsonData);
+        toast.success("Weather report fetched successfully");
       }
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
-    setInputText("")
-  }
+    setInputText("");
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    fetchWeatherByCity(inputText)
-  }
+    e.preventDefault();
+    fetchWeatherByCity(inputText);
+  };
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos, error) => {
       if (error) {
-        alert(error)
-        return false
+        alert(error);
+        return false;
       }
       setPosition({
         lat: pos.coords.latitude,
         long: pos.coords.longitude,
-      })
+      });
 
-      fetchWeather(pos.coords.latitude, pos.coords.longitude)
+      fetchWeather(pos.coords.latitude, pos.coords.longitude);
 
-      const d = new Date()
+      const d = new Date();
 
       if (d.getHours() >= 18) {
-        setIsEvening(true)
+        setIsEvening(true);
       } else {
-        setIsEvening(false)
+        setIsEvening(false);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   if (!weatherReport) {
     return (
       <div className="container">
         <div className="wrapper">Loading...</div>
       </div>
-    )
+    );
   }
 
   return (
@@ -175,7 +175,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

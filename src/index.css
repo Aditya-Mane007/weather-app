@@ -23,6 +23,7 @@
 
 .wrapper {
   width: 50%;
+  max-width: 50rem;
   height: 100%;
   border-radius: 15px;
   padding: 1.5rem;
@@ -39,26 +40,6 @@
 .wrapper.dark {
   background: #333333;
 }
-
-.wrapper {
-  width: 38%;
-  height: auto;
-  border-radius: 12px;
-  /* background: var(--DARKESTBLUE); */
-  /* background: linear-gradient(45deg, #b9f8ff, #9cd1dc);
-  box-shadow: 11px -11px 35px var(--DARKBLUE), -11px 11px 35px #ffffff; */
-  /* padding: 1rem; */
-}
-
-/* .wrapper .div2 {
-  width: 60%;
-  height: 100%;
-  border-radius: 12px; */
-/* padding: 1rem; */
-/* background: var(--DARKESTBLUE); */
-/* background: linear-gradient(45deg, #b9f8ff, #9cd1dc);
-  box-shadow: 11px -11px 50px #73e2f8, -11px 11px 50px #ffffff; */
-/* } */
 
 .formDiv {
   width: 100%;
@@ -93,6 +74,9 @@
   outline: none;
   background-color: #747474;
   color: white;
+  &::placeholder {
+    color: white;
+  }
 }
 
 .formDiv form button.light {
@@ -165,5 +149,12 @@
     width: 90%;
     flex-direction: column;
     margin: 5rem 0;
+  }
+  .wrapper .sub-wether-info {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
   }
 }
