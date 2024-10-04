@@ -103,7 +103,7 @@ function App() {
 
       const d = new Date()
 
-      if (d.getHours() >= 19) {
+      if (d.getHours() >= 18) {
         setInputText(true)
       } else {
         setInputText(false)
