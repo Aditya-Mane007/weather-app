@@ -1,39 +1,93 @@
 import React, { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 function App() {
   const [position, setPosition] = useState({
     lat: "",
     long: "",
   })
+  const [inputText, setInputText] = useState("")
 
   const [weatherReport, setWeatherReport] = useState()
 
   console.log(position)
   console.log(weatherReport)
+
   const fetchWeather = async (lat, long) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
-    )
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
+      )
 
-    const data = await res.json()
+      if (!res.ok || res.status === 404) {
+        throw new Error("Enable To fetch weather report")
+      }
 
-    console.log(data)
+      const data = await res.json()
 
-    const jsonData = {
-      country: data.city.country,
-      name: data.city.name,
-      population: data.city.population,
-      sunrise: data.city.sunrise,
-      sunset: data.city.sunset,
-      weatherData: data.list[0],
-      weather: data.list[0].weather[0],
+      console.log(data)
+
+      const jsonData = {
+        country: data.city.country,
+        name: data.city.name,
+        population: data.city.population,
+        sunrise: data.city.sunrise,
+        sunset: data.city.sunset,
+        weatherData: data.list[0],
+        weather: data.list[0].weather[0],
+      }
+
+      console.log(jsonData)
+
+      setWeatherReport(jsonData)
+      // toast.success("Weather report fetched successfully")
+    } catch (error) {
+      toast.warning(error)
     }
-
-    console.log(jsonData)
-
-    setWeatherReport(jsonData)
   }
 
+  const fetchWeatherByCity = async (city) => {
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
+      )
+
+      console.log(res.status)
+
+      if (!res.ok) {
+        throw new Error("Enable To fetch weather report")
+      }
+
+      const data = await res.json()
+
+      if (data && data.cod == "404") {
+        throw new Error(data.message)
+      } else {
+        const jsonData = {
+          country: data.city.country,
+          name: data.city.name,
+          population: data.city.population,
+          sunrise: data.city.sunrise,
+          sunset: data.city.sunset,
+          weatherData: data.list[0],
+          weather: data.list[0].weather[0],
+        }
+
+        console.log(jsonData)
+
+        setWeatherReport(jsonData)
+        toast.success("Weather report fetched successfully")
+      }
+    } catch (error) {
+      toast.error(error)
+    }
+    setInputText("")
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    fetchWeatherByCity(inputText)
+  }
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos, error) => {
       if (error) {
@@ -60,22 +114,29 @@ function App() {
   return (
     <div className="container">
       <div className="wrapper">
-        <div>
-          <form>
+        <div className="formDiv">
+          <form onSubmit={submitHandler}>
             <input
               type="text"
-              value={weatherReport.name + ", " + weatherReport.country}
-              readOnly
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="e.g. goregaon"
+              required
             />
+            <button type="submit">Search</button>
           </form>
         </div>
         <div className="main-wether-info">
+          {weatherReport.name + ", " + weatherReport.country}
           <h1 className="temprature">
             {weatherReport.weatherData.main.temp} c
           </h1>
           <h2 className="main">{weatherReport.weather.main}</h2>
           <h2 className="description">{weatherReport.weather.description}</h2>
-          <img src={`https://openweathermap.org/img/wn/${weatherReport.weather.icon}@2x.png`} alt="" />
+          <img
+            src={`https://openweathermap.org/img/wn/${weatherReport.weather.icon}@2x.png`}
+            alt=""
+          />
         </div>
         <div className="sub-wether-info">
           <div>

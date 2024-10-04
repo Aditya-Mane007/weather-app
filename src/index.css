@@ -53,20 +53,39 @@
   box-shadow: 11px -11px 50px #73e2f8, -11px 11px 50px #ffffff; */
 /* } */
 
-form input {
+.formDiv {
+  width: 100%;
+}
+
+.formDiv form {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.formDiv form input {
   width: 100%;
   height: 2.5rem;
   padding: 0 1rem;
   border-radius: 5px;
+  font-size: 1.2rem;
   border: none;
   outline: none;
-  font-size: 1rem;
   background: var(--DARKBLUE);
   color: #ffffff;
+}
 
-  &::placeholder {
-    color: #ffffff;
-  }
+.formDiv form button {
+  width: auto;
+  height: 2.5rem;
+  border: none;
+  outline: none;
+  background: var(--DARKBLUE);
+  padding: 0 1rem;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .wrapper .main-wether-info {
@@ -102,68 +121,10 @@ form input {
   margin: 0.5rem 0;
 }
 
-.wrapper 
-/* 
-.hourly-info,
-.daily-info div {
-  padding: 5rem 0;
-}
-
-.hourly-details,
-.daily-details,
-.other-details {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: scroll;
-}
-
-.hourly-details,
-.daily-details,
-.other-details div {
-  width: 100%;
-  height: 0rem;
-  text-align: center;
-  background: var(--BLUE);
-}
-
-.hourly-details,
-.daily-details,
-.other-details div p {
-  margin: 0.5rem 0;
-} */
-
-::-webkit-scrollbar {
-  width: 0px;
-}
-
-@media screen and (max-width: 1024px) and (min-width: 768px) {
-  .wrapper {
-    width: 90%;
-    margin: 5rem 0;
-  }
-
-  .wrapper .div1 {
-    width: 100%;
-    margin: 0 1rem 0 0;
-  }
-  .wrapper .div2 {
-    width: 100%;
-  }
-}
-
 @media screen and (max-width: 768px) {
   .wrapper {
     width: 90%;
     flex-direction: column;
     margin: 5rem 0;
-  }
-
-  .wrapper .div1 {
-    width: 100%;
-    margin-bottom: 2rem;
-  }
-  .wrapper .div2 {
-    width: 100%;
   }
 }
