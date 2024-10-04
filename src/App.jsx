@@ -104,9 +104,9 @@ function App() {
       const d = new Date()
 
       if (d.getHours() >= 18) {
-        setInputText(true)
+        setIsEvening(true)
       } else {
-        setInputText(false)
+        setIsEvening(false)
       }
     })
   }, [])
