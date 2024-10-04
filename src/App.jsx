@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 function App() {
+  const [isEvening, setIsEvening] = useState(false)
   const [position, setPosition] = useState({
     lat: "",
     long: "",
@@ -44,6 +45,7 @@ function App() {
     } catch (error) {
       toast.warning(error)
     }
+    setInputText("")
   }
 
   const fetchWeatherByCity = async (city) => {
@@ -51,8 +53,6 @@ function App() {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
       )
-
-      console.log(res.status)
 
       if (!res.ok) {
         throw new Error("Enable To fetch weather report")
@@ -100,6 +100,14 @@ function App() {
       })
 
       fetchWeather(pos.coords.latitude, pos.coords.longitude)
+
+      const d = new Date()
+
+      if (d.getHours() >= 19) {
+        setInputText(true)
+      } else {
+        setInputText(false)
+      }
     })
   }, [])
 
@@ -113,7 +121,7 @@ function App() {
 
   return (
     <div className="container">
-      <div className="wrapper">
+      <div className={isEvening ? "wrapper dark" : "wrapper light"}>
         <div className="formDiv">
           <form onSubmit={submitHandler}>
             <input
@@ -122,8 +130,11 @@ function App() {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="e.g. goregaon"
               required
+              className={isEvening ? "dark" : "light"}
             />
-            <button type="submit">Search</button>
+            <button type="submit" className={isEvening ? "dark" : "light"}>
+              Search
+            </button>
           </form>
         </div>
         <div className="main-wether-info">
@@ -138,7 +149,11 @@ function App() {
             alt=""
           />
         </div>
-        <div className="sub-wether-info">
+        <div
+          className={
+            isEvening ? "sub-wether-info  dark" : "sub-wether-info  light"
+          }
+        >
           <div>
             <h3 className="title">Feels Like</h3>
             <h2 className="subtitle">
