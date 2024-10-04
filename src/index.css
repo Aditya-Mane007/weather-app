@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lilita One", sans-serif;
+}
+
+:root {
+  --BLUE: #ade8f4;
+  --DARKBLUE: #00b4d8;
+  --DARKESTBLUE: #0096c7;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.wrapper {
+  width: 50%;
+  height: 100%;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--DARKESTBLUE);
+  text-align: center;
+}
+
+.wrapper {
+  width: 38%;
+  height: auto;
+  border-radius: 12px;
+  /* background: var(--DARKESTBLUE); */
+  /* background: linear-gradient(45deg, #b9f8ff, #9cd1dc);
+  box-shadow: 11px -11px 35px var(--DARKBLUE), -11px 11px 35px #ffffff; */
+  /* padding: 1rem; */
+}
+
+/* .wrapper .div2 {
+  width: 60%;
+  height: 100%;
+  border-radius: 12px; */
+/* padding: 1rem; */
+/* background: var(--DARKESTBLUE); */
+/* background: linear-gradient(45deg, #b9f8ff, #9cd1dc);
+  box-shadow: 11px -11px 50px #73e2f8, -11px 11px 50px #ffffff; */
+/* } */
+
+form input {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: var(--DARKBLUE);
+  color: #ffffff;
+
+  &::placeholder {
+    color: #ffffff;
+  }
+}
+
+.wrapper .main-wether-info {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.wrapper .main-wether-info .temprature {
+  font-size: 4rem;
+}
+
+.wrapper .sub-wether-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+}
+
+.wrapper .sub-wether-info div {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid black; */
+  border-radius: 10px;
+  background: var(--DARKBLUE);
+  padding: 1rem;
+}
+
+.wrapper .sub-wether-info div h3 {
+  margin: 0.5rem 0;
+}
+
+.wrapper 
+/* 
+.hourly-info,
+.daily-info div {
+  padding: 5rem 0;
+}
+
+.hourly-details,
+.daily-details,
+.other-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
+
+.hourly-details,
+.daily-details,
+.other-details div {
+  width: 100%;
+  height: 0rem;
+  text-align: center;
+  background: var(--BLUE);
+}
+
+.hourly-details,
+.daily-details,
+.other-details div p {
+  margin: 0.5rem 0;
+} */
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .wrapper {
+    width: 90%;
+    margin: 5rem 0;
+  }
+
+  .wrapper .div1 {
+    width: 100%;
+    margin: 0 1rem 0 0;
+  }
+  .wrapper .div2 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 90%;
+    flex-direction: column;
+    margin: 5rem 0;
+  }
+
+  .wrapper .div1 {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .wrapper .div2 {
+    width: 100%;
+  }
+}
