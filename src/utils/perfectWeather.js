@@ -9,6 +9,4 @@ export const perfetctReport = (arr) => {
 
     console.log(currentTime)
   })
-
-  //   console.log(minIndex)
 }

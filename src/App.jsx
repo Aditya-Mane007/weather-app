@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 function App() {
-  const [isEvening, setIsEvening] = useState(false);
+  const d = new Date()
+  const [isEvening, setIsEvening] = useState(false)
   const [position, setPosition] = useState({
     lat: "",
     long: "",
-  });
-  const [inputText, setInputText] = useState("");
+  })
+  const [inputText, setInputText] = useState("")
 
   const [weatherReport, setWeatherReport] = useState()
 
@@ -18,13 +19,13 @@ function App() {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
-      );
+      )
 
       if (!res.ok || res.status === 404) {
-        throw new Error("Enable To fetch weather report");
+        throw new Error("Enable To fetch weather report")
       }
 
-      const data = await res.json();
+      const data = await res.json()
 
       console.log(data)
 
@@ -40,28 +41,28 @@ function App() {
 
       console.log(jsonData)
 
-      setWeatherReport(jsonData);
+      setWeatherReport(jsonData)
       // toast.success("Weather report fetched successfully")
     } catch (error) {
-      toast.warning(error);
+      toast.warning(error)
     }
-    setInputText("");
-  };
+    setInputText("")
+  }
 
   const fetchWeatherByCity = async (city) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=75b4bb3633207fbf9ecc498c498a5bbd&units=metric`
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Enable To fetch weather report");
+        throw new Error("Enable To fetch weather report")
       }
 
-      const data = await res.json();
+      const data = await res.json()
 
       if (data && data.cod == "404") {
-        throw new Error(data.message);
+        throw new Error(data.message)
       } else {
         const jsonData = {
           country: data.city.country,
@@ -75,41 +76,39 @@ function App() {
 
         console.log(jsonData)
 
-        setWeatherReport(jsonData);
-        toast.success("Weather report fetched successfully");
+        setWeatherReport(jsonData)
+        toast.success("Weather report fetched successfully")
       }
     } catch (error) {
-      toast.error(error);
+      toast.error(error)
     }
-    setInputText("");
-  };
+    setInputText("")
+  }
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    fetchWeatherByCity(inputText);
-  };
+    e.preventDefault()
+    fetchWeatherByCity(inputText)
+  }
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos, error) => {
       if (error) {
-        alert(error);
-        return false;
+        alert(error)
+        return false
       }
       setPosition({
         lat: pos.coords.latitude,
         long: pos.coords.longitude,
-      });
+      })
 
-      fetchWeather(pos.coords.latitude, pos.coords.longitude);
-
-      const d = new Date();
+      fetchWeather(pos.coords.latitude, pos.coords.longitude)
 
       if (d.getHours() >= 18) {
-        setIsEvening(true);
+        setIsEvening(true)
       } else {
-        setIsEvening(false);
+        setIsEvening(false)
       }
-    });
-  }, []);
+    })
+  }, [])
 
   if (!weatherReport) {
     return (
@@ -118,7 +117,7 @@ function App() {
           Loading...
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -141,6 +140,9 @@ function App() {
         </div>
         <div className="main-wether-info">
           {weatherReport.name + ", " + weatherReport.country}
+          <div style={{ margin: ".5rem 0" }}>
+            {d.toLocaleString(d.getTime())}
+          </div>
           <h1 className="temprature">
             {weatherReport.weatherData.main.temp} c
           </h1>
@@ -177,7 +179,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
