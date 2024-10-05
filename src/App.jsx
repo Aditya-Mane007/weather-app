@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { perfetctReport } from "./utils/perfectWeather"
 
 function App() {
   const [isEvening, setIsEvening] = useState(false)
@@ -10,9 +11,6 @@ function App() {
   const [inputText, setInputText] = useState("")
 
   const [weatherReport, setWeatherReport] = useState()
-
-  console.log(position)
-  console.log(weatherReport)
 
   const fetchWeather = async (lat, long) => {
     try {
@@ -26,7 +24,7 @@ function App() {
 
       const data = await res.json()
 
-      console.log(data)
+      const value = perfetctReport(data.list)
 
       const jsonData = {
         country: data.city.country,
@@ -37,8 +35,6 @@ function App() {
         weatherData: data.list[0],
         weather: data.list[0].weather[0],
       }
-
-      console.log(jsonData)
 
       setWeatherReport(jsonData)
       // toast.success("Weather report fetched successfully")
@@ -72,8 +68,6 @@ function App() {
           weatherData: data.list[0],
           weather: data.list[0].weather[0],
         }
-
-        console.log(jsonData)
 
         setWeatherReport(jsonData)
         toast.success("Weather report fetched successfully")
@@ -114,7 +108,9 @@ function App() {
   if (!weatherReport) {
     return (
       <div className="container">
-        <div className="wrapper">Loading...</div>
+        <div className={isEvening ? "wrapper dark" : "wrapper light"}>
+          Loading...
+        </div>
       </div>
     )
   }

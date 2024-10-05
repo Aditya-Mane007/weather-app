@@ -34,10 +34,12 @@
 
 .wrapper.light {
   background: var(--DARKESTBLUE);
+  color: white;
 }
 
 .wrapper.dark {
   background: #333333;
+  color: black;
 }
 
 .wrapper {
