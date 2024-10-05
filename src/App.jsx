@@ -141,7 +141,7 @@ function App() {
         <div className="main-wether-info">
           {weatherReport.name + ", " + weatherReport.country}
           <div style={{ margin: ".5rem 0" }}>
-            {d.toLocaleString(d.getTime())}
+            {d.toLocaleString(weatherReport.weather.dt)}
           </div>
           <h1 className="temprature">
             {weatherReport.weatherData.main.temp} c
